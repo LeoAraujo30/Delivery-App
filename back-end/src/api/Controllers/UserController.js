@@ -1,10 +1,10 @@
-const { userService } = require("../Services/Index");
+const { userService } = require('../Services/Index');
 
 const userLogin = async (req, res) => {
   const user = req.body;
   const serviceResponse = await userService.userLogin(user);
   return res.status(serviceResponse.status).json(serviceResponse.message);
-}
+};
 
 const addUser = async (req, res) => {
   const newUser = req.body;
@@ -14,4 +14,5 @@ const addUser = async (req, res) => {
 
 module.exports = {
   userLogin,
-}
+  addUser,
+};
