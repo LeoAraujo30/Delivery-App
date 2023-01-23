@@ -5,11 +5,15 @@ import AppContex from './AppContext';
 function AppProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   const provider = useMemo(() => ({ email,
     setEmail,
     password,
-    setPassword }), [email, password]);
+    setPassword,
+    username,
+    setUsername,
+  }), [email, password, username]);
 
   return (
     <AppContex.Provider value={ provider }>
