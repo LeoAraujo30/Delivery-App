@@ -16,7 +16,7 @@ function Login() {
   const isValidEmail = (emailAddress) => /\S+@\S+\.\S+/.test(emailAddress);
 
   useEffect(() => {
-    if (isValidEmail(email) && password.length > MIN_LENGHT_PASS) {
+    if (isValidEmail(email) && password.length >= MIN_LENGHT_PASS) {
       setIsButtonDisable(false);
     } else {
       setIsButtonDisable(true);
