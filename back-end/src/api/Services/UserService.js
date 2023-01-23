@@ -1,11 +1,6 @@
-const { User } = require('../../database/models');
 const crypto = require('crypto');
+const { User } = require('../../database/models');
 const tokenServices = require('../Helpers/tokenFunctions');
-
-const getAll = async () => {
-  const response = await User.findAll();
-  return { status: 200, message: response };
-}
 
 const userLogin = async ({ email, password }) => {
   const passwordMd5 = crypto.createHash('md5').update(password).digest('hex');
@@ -27,7 +22,7 @@ const register = async (newUser) => {
     name: newUser.name,
     email: newUser.email,
     password: crypto.createHash('md5').update(newUser.password).digest('hex'),
-    role: 'customer', //coloquei como customer pois não vi nada sobre no requisito
+    role: 'customer',
   });
   return { status: 201, message: token };
 };
@@ -35,5 +30,4 @@ const register = async (newUser) => {
 module.exports = {
   userLogin,
   register,
-  getAll,
 };
