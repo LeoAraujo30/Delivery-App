@@ -12,11 +12,12 @@ function Login() {
 
   const navigate = useNavigate();
   const handleClick = () => navigate('/products');
+  const goToRegister = () => navigate('/register');
 
   const isValidEmail = (emailAddress) => /\S+@\S+\.\S+/.test(emailAddress);
 
   useEffect(() => {
-    if (isValidEmail(email) && password.length > MIN_LENGHT_PASS) {
+    if (isValidEmail(email) && password.length >= MIN_LENGHT_PASS) {
       setIsButtonDisable(false);
     } else {
       setIsButtonDisable(true);
@@ -63,7 +64,7 @@ function Login() {
         <button
           data-testid="common_login__button-register"
           type="button"
-          onClick={ handleClick }
+          onClick={ goToRegister }
         >
           Register
         </button>
