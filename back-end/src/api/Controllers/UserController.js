@@ -11,14 +11,14 @@ const userLogin = async (req, res) => {
   return res.status(serviceResponse.status).json(serviceResponse.message);
 };
 
-const addUser = async (req, res) => {
+const register = async (req, res) => {
   const newUser = req.body;
-  const serviceResponse = await userService.addUser(newUser);
-  return res.status(serviceResponse.status).json({ message: serviceResponse.message });
+  const serviceResponse = await userService.register(newUser);
+  return res.status(serviceResponse.status).json(serviceResponse.message);
 };
 
 module.exports = {
   userLogin,
-  addUser,
+  register,
   getAll,
 };

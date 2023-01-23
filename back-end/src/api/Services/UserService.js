@@ -1,5 +1,6 @@
 const { User } = require('../../database/models');
 const crypto = require('crypto');
+const tokenServices = require('../Helpers/tokenFunctions');
 
 const getAll = async () => {
   const response = await User.findAll();
@@ -13,24 +14,26 @@ const userLogin = async ({ email, password }) => {
     return { status: 404, message: 'Not found' };
   }
   const { password: _, ...userWithoutPassword } = user.dataValues; // o "password: _" tá removendo o atributo do obj
-  return { status: 200, message: userWithoutPassword };
+  const token = tokenServices.createToken(userWithoutPassword);
+  return { status: 200, message: { ...userWithoutPassword, token } };
 };
 
-const addUser = async (newUser) => {
+const register = async (newUser) => {
   const check = await User.findOne({ where: { email: newUser.email } });
-  if (check) return { status: 409, message: 'User already registered' };
+  if (check) return { status: 409, message: 'Conflict' };
   const { password: _, ...userWithoutPassword } = newUser;
-  const token = tokenFuncs.createToken(userWithoutPassword);
+  const token = tokenServices.createToken(userWithoutPassword);
   await User.create({
     name: newUser.name,
     email: newUser.email,
-    password: newUser.password,
+    password: crypto.createHash('md5').update(newUser.password).digest('hex'),
+    role: 'customer', //coloquei como customer pois não vi nada sobre no requisito
   });
   return { status: 201, message: token };
 };
 
 module.exports = {
   userLogin,
-  addUser,
+  register,
   getAll,
 };
