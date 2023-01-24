@@ -1,13 +1,12 @@
 require('dotenv/config');
 const jwt = require('jsonwebtoken');
-// const fs = require('fs');
+const fs = require('fs');
+// const bla = require('')
 
 const createToken = (data) => {
-  // const key = fs.readFileSync('back-end/jwt.evaluation.key', 'utf8');
-  // console.log(key);
+  const jwtKey = fs.readFileSync('./jwt.evaluation.key', "utf-8");
 
-  // não consegui pegar o secret do arquivo jwt.evaluation.key que está no diretório back-end
-  const token = jwt.sign({ data }, 'secret_key', {
+  const token = jwt.sign({ data }, jwtKey, {
     expiresIn: '15d',
     algorithm: 'HS256',
   });
@@ -17,7 +16,7 @@ const createToken = (data) => {
 
 const validateToken = (token) => {
   try {
-    const data = jwt.verify(token, 'secret_key');
+    const data = jwt.verify(token, jwtKey);
     return data; // retorna { iat: data de emissao, exp: data de expiração } em caso de sucesso
   } catch (_e) {
     return { status: 401, message: 'Expired or invalid token' };
