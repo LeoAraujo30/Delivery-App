@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAlert } from 'react-alert';
+import Axios from 'axios';
 import rockGlass from '../images/rockGlass.svg';
 import AppContext from '../utils/AppContext';
 
@@ -8,11 +10,22 @@ const MIN_LENGHT_PASS = 6;
 function Login() {
   const [isButtonDisable, setIsButtonDisable] = useState('');
   const { email, setEmail, password, setPassword } = useContext(AppContext);
+  const alert = useAlert();
   // const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
-  const handleClick = () => navigate('/products');
+  const handleLoginClick = (values) => {
+    Axios.post('http://localhost:3001/login', {
+      email: values.email,
+      password: values.password,
+    }).then((response) => {
+      if (typeof response === 'string') {
+        return 'não';
+      } return 'sim';
+    });
+  };
   const goToRegister = () => navigate('/register');
+  const goToLogin = () => navigate('/products');
 
   const isValidEmail = (emailAddress) => /\S+@\S+\.\S+/.test(emailAddress);
 
@@ -56,7 +69,14 @@ function Login() {
           data-testid="common_login__button-login"
           type="button"
           disabled={ isButtonDisable }
-          onClick={ handleClick }
+          onClick={ handleLoginClick === 'sim' ? goToLogin
+            : (
+              () => {
+                <div data-testid="common_login__element-invalid-email">
+                  {alert.show('Oh look, an alert!') }
+                  ;
+                </div>;
+              }) }
         >
           Login
         </button>
