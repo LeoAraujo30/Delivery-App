@@ -15,7 +15,7 @@ function Login() {
 
   const navigate = useNavigate();
   const handleLoginClick = (values) => {
-    Axios.post('http://localhost:3001/login', {
+    Axios.post('http://localhost:3001/user/login', {
       email: values.email,
       password: values.password,
     }).then((response) => {
