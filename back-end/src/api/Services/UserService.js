@@ -14,8 +14,9 @@ const userLogin = async ({ email, password }) => {
 };
 
 const register = async (newUser) => {
-  const check = await User.findOne({ where: { email: newUser.email } });
-  if (check) return { status: 409, message: 'Conflict' };
+  const check1 = await User.findOne({ where: { email: newUser.email } });
+  const check2 = await User.findOne({ where: { name: newUser.name } });
+  if (check1 || check2) return { status: 409, message: 'Conflict' };
   const { password: _, ...userWithoutPassword } = newUser;
   const token = tokenServices.createToken(userWithoutPassword);
   await User.create({
