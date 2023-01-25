@@ -1,20 +1,19 @@
-import React from 'react';
-// import fetchProducts from '../api/fetchProducts';
-// import Card from '../components/Card';
+import React, { useEffect, useState } from 'react';
+import fetchProducts from '../api/fetchProducts';
+import Card from '../components/Card';
 import Navbar from '../components/Navbar';
 
 export default function Products() {
-  // const [products, setProducts] = useState([]);
-  // const showItens = [];
+  const [products, setProducts] = useState([]);
 
-  // useEffect(() => {
-  //   fetchProducts(setProducts);
-  // }, []);
+  useEffect(() => {
+    fetchProducts(setProducts);
+  }, []);
 
   return (
     <>
       <Navbar />
-      {/* { products.map(
+      { products.map(
         ({ price, url_image: urlImage, name, id }) => (
           <Card
             key={ id }
@@ -22,9 +21,8 @@ export default function Products() {
             price={ price }
             urlImage={ urlImage }
             name={ name }
-            showItens={ showItens }
           />),
-      )} */}
+      )}
     </>
   );
 }
