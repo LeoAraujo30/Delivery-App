@@ -1,4 +1,7 @@
+import axios from 'axios';
+// import * as jwt from 'jsonwebtoken';
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppContext from '../utils/AppContext';
 
 const MIN_LENGHT_PASS = 6;
@@ -6,11 +9,25 @@ const MIN_LENGHT_NAME = 12;
 
 function Register() {
   const [isButtonDisable, setIsButtonDisable] = useState('');
+  const [invalidRegister, setInvalidRegister] = useState(false);
   const { email, setEmail, password, setPassword,
     username, setUsername } = useContext(AppContext);
 
-  // const navigate = useNavigate();
-  // const handleClick = () => navigate('/products');
+  const navigate = useNavigate();
+  const handleClick = async (body) => {
+    const api = axios.create({
+      baseURL: 'http://localhost:3001/user',
+    });
+    try {
+      const { data } = await api.post('/register', body);
+      const userObj = { name: username, email, role: 'customer', token: data };
+      localStorage.setItem('user', JSON.stringify(userObj));
+      setInvalidRegister(false);
+      navigate(`/${userObj.role}/products`);
+    } catch (_error) {
+      setInvalidRegister(true);
+    }
+  };
 
   const isValidEmail = (emailAddress) => /\S+@\S+\.\S+/.test(emailAddress);
 
@@ -62,16 +79,16 @@ function Register() {
           data-testid="common_register__button-register"
           type="button"
           disabled={ isButtonDisable }
-        //   onClick={ handleClick }
+          onClick={ () => handleClick({ name: username, email, password }) }
         >
           Cadastrar
         </button>
 
-        <span
-          data-testid="common_register__element-invalid_register"
-        >
-          dados invalidos
-        </span>
+        { (invalidRegister) ? (
+          <span data-testid="common_register__element-invalid_register">
+            dados invalidos
+          </span>
+        ) : ''}
       </div>
     </div>
   );
