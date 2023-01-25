@@ -3,5 +3,5 @@ const saleService = require('./saleService');
 
 module.exports = {
   userService,
-  saleService
+  saleService,
 };
