@@ -14,14 +14,15 @@ export default function Products() {
     <>
       <Navbar />
       { products.map(
-        ({ price, url_image: urlImage, name, id }) => (
+        ({ price, urlImage, name, index }) => (
           <Card
-            key={ id }
-            index={ id }
+            key={ index }
+            index={ index }
             price={ price }
             urlImage={ urlImage }
             name={ name }
-          />),
+          />
+        ),
       )}
     </>
   );

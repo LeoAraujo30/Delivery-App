@@ -1,34 +1,50 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function CardProduct({ id, price, name, urlImage }) {
+export default function CardProduct({ price, urlImage, name, index }) {
   return (
-    <div
-      key={ id }
-    >
+    <div>
       <span
-        data-testid={
-          `customer_products__element-card-price-${id}`
-        }
+        data-testid={ `customer_products__element-card-price-${index}` }
       >
         { price }
       </span>
       <img
         height="100px"
         width="100px"
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        data-testid={ `customer_products__img-card-bg-image-${index}` }
         src={ urlImage }
         alt="Imagem do produto"
       />
-      <h2 data-testid={ `customer_products__element-card-title-${id}` }>
+      <h2 data-testid={ `customer_products__element-card-title-${index}` }>
         { name }
       </h2>
+      <div>
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-rm-item-${index}` }
+        >
+          -
+        </button>
+        <input
+          type="number"
+          min="0"
+          data-testid={ `customer_products__input-card-quantity-${index}` }
+          placeholder="0"
+        />
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-add-item-${index}` }
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }
 
 CardProduct.propTypes = {
-  id: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   price: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,

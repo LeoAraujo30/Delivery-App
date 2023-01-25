@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const PORT = 3001;
+const PORT = 3006;
 
 const api = axios.create({
   baseURL: `http://localhost:${PORT}`,
 });
 
 const fetchProducts = async (setProducts) => {
-  const endpoint = '/products';
+  const endpoint = '/customer/products';
 
   await api.get(endpoint)
     .then((data) => {
