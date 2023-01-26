@@ -36,6 +36,7 @@ const registerByAdm = async (newUserByAdm) => {
   if (check1 || check2) return { status: 409, message: 'Conflict' };
   const { password: _, token: __, ...userWithoutPassToken } = newUserByAdm;
   const admTokenValidate = tokenServices.validateToken(newUserByAdm.token);
+  if (!admTokenValidate.data) return { status: 409, message: 'The token is not from an admin' };
   if (admTokenValidate.data.role === 'administrator') {
     await User.create({
       name: newUserByAdm.name,
@@ -45,7 +46,6 @@ const registerByAdm = async (newUserByAdm) => {
     });
     return { status: 201, message: userWithoutPassToken };
   }
-  return { status: 409, message: 'The token is not from an admin' };
 };
 
 module.exports = {
