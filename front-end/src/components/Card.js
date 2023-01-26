@@ -10,7 +10,7 @@ export default function CardProduct({ price, urlImage, name, index }) {
       <h2
         data-testid={ `customer_products__element-card-price-${index}` }
       >
-        { price.replace('.', ',') }
+        { price }
       </h2>
       <img
         height="100px"
