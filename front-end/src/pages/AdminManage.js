@@ -6,6 +6,7 @@ function AdminManage() {
   return (
     <div>
       <label htmlFor="name-input">
+        Nome:
         <input
           className="name-input"
           data-testid="admin_manage__input-name"
@@ -16,6 +17,7 @@ function AdminManage() {
       </label>
 
       <label htmlFor="email-input">
+        Email:
         <input
           className="email-input"
           data-testid="admin_manage__input-email"
@@ -26,6 +28,7 @@ function AdminManage() {
       </label>
 
       <label htmlFor="password-input">
+        Senha:
         <input
           className="password-input"
           data-testid="admin_manage__input-password"
@@ -35,14 +38,18 @@ function AdminManage() {
         />
       </label>
 
-      <select
-        name="select"
-        data-testid="admin_manage__select-role"
-      >
-        <option value="valor1">Vendedor</option>
-        <option value="valor2" selected>Cliente</option>
-        <option value="valor3">Administrador</option>
-      </select>
+      <label htmlFor="select">
+        Tipo:
+        <select
+          name="select"
+          data-testid="admin_manage__select-role"
+        >
+          <option value=" " defaultValue> </option>
+          <option value="seller">Vendedor</option>
+          <option value="customer">Cliente</option>
+          <option value="administrator">Administrador</option>
+        </select>
+      </label>
 
       <button
         data-testid="admin_manage__button-register"
