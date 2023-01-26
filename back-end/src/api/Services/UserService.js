@@ -18,14 +18,28 @@ const register = async (newUser) => {
   const check2 = await User.findOne({ where: { name: newUser.name } });
   if (check1 || check2) return { status: 409, message: 'Conflict' };
   const { password: _, ...userWithoutPassword } = newUser;
-  const token = tokenServices.createToken(userWithoutPassword);
-  await User.create({
-    name: newUser.name,
-    email: newUser.email,
-    password: crypto.createHash('md5').update(newUser.password).digest('hex'),
-    role: 'customer',
-  });
-  return { status: 201, message: token };
+  if (!newUser.role) {
+    const token = tokenServices.createToken(userWithoutPassword);
+    await User.create({
+      name: newUser.name,
+      email: newUser.email,
+      password: crypto.createHash('md5').update(newUser.password).digest('hex'),
+      role: 'customer',
+    });
+    return { status: 201, message: token };
+  }
+  const admTokenValidate = tokenServices.validateToken(newUser.token);
+  if (admTokenValidate.data.role === 'administrator') {
+    await User.create({
+      name: newUser.name,
+      email: newUser.email,
+      password: crypto.createHash('md5').update(newUser.password).digest('hex'),
+      role: newUser.role,
+    });
+    const { token: _, ...userWithoutPassToken } = userWithoutPassword;
+    return { status: 201, message: userWithoutPassToken };
+  }
+  return { status: 409, message: 'The token is not from an admin' };
 };
 
 module.exports = {

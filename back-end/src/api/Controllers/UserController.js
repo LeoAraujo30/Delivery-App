@@ -12,7 +12,14 @@ const register = async (req, res) => {
   return res.status(serviceResponse.status).json(serviceResponse.message);
 };
 
+const registerByAdm = async (req, res) => {
+  const newUser = req.body;
+  const serviceResponse = await userService.register(newUser);
+  return res.status(serviceResponse.status).json(serviceResponse.message);
+}
+
 module.exports = {
   userLogin,
   register,
+  registerByAdm,
 };
