@@ -103,4 +103,58 @@ describe('Testes do userController', function () {
       expect(res.json).to.have.been.calledWith('Conflict');
     });
   });
+
+  describe('Testes do endpoint registerByAdm', function () {
+    it('Deve retornar os dados de registro corretamente', async function () {
+      const res = {};
+      const req = { 
+        body: {
+        name: "zebirita",
+        email: "zebirita@email.com",
+        password: "$#zebirita#$",
+        role: "seller",
+        token: "token_de_adm"
+        }
+      };
+      const serviceMessage = {
+        name: "zebirita",
+        email: "zebirita@email.com",
+        role: "seller",
+      };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      
+      sinon.stub(Service.userService, 'registerByAdm').resolves({ 
+        message: serviceMessage,
+        status: 201
+      });
+      await userController.registerByAdm(req, res);
+
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledWith(serviceMessage);
+    });
+    it('Deve retornar os dados de falha no registro ', async function () {
+      const res = {};
+      const req = { 
+        body: {
+        name: "zebirita",
+        email: "zebirita@email.com",
+        password: "$#zebirita#$",
+        role: "seller",
+        token: "token_de_adm"
+        }
+      };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      
+      sinon.stub(Service.userService, 'registerByAdm').resolves({ 
+        message: 'Conflict',
+        status: 409
+      });
+      await userController.registerByAdm(req, res);
+
+      expect(res.status).to.have.been.calledWith(409);
+      expect(res.json).to.have.been.calledWith('Conflict');
+    });
+  });
 });
