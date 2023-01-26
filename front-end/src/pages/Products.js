@@ -37,10 +37,10 @@ export default function Products() {
     <>
       <Navbar />
       { products.map(
-        ({ price, urlImage, name, index }) => (
+        ({ price, urlImage, name, id }) => (
           <Card
-            key={ index }
-            index={ index }
+            key={ id }
+            id={ id }
             price={ price }
             urlImage={ urlImage }
             name={ name }
