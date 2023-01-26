@@ -40,10 +40,10 @@ function AddressInput() {
 
   return (
     <div>
-      {/* <label htmlFor="name-input">
+      <label htmlFor="name-input">
         <input
           className="name-input"
-          data-testid="common_register__input-name"
+          data-testid="customer_checkout__select-seller"
           type="text"
           placeholder="Name"
           onChange={ ({ target }) => setUsername(target.value) }
@@ -53,7 +53,7 @@ function AddressInput() {
       <label htmlFor="email-input">
         <input
           className="email-input"
-          data-testid="common_register__input-email"
+          data-testid="customer_checkout__input-address"
           type="email"
           placeholder="Email"
           onChange={ ({ target }) => setEmail(target.value) }
@@ -63,7 +63,7 @@ function AddressInput() {
       <label htmlFor="password-input">
         <input
           className="password-input"
-          data-testid="common_register__input-password"
+          data-testid="customer_checkout__input-address-number"
           type="password"
           placeholder="Password"
           onChange={ ({ target }) => setPassword(target.value) }
@@ -71,13 +71,13 @@ function AddressInput() {
       </label>
 
       <button
-        data-testid="common_register__button-register"
+        data-testid="customer_checkout__button-submit-order"
         type="button"
         disabled={ isButtonDisable }
         onClick={ () => handleClick({ name: username, email, password }) }
       >
-        Cadastrar
-      </button> */}
+        Finalizar Pedido
+      </button>
     </div>
   );
 }
