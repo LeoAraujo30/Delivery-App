@@ -4,11 +4,14 @@ import React from 'react';
 export default function CardProduct({ price, urlImage, name, index }) {
   return (
     <div>
-      <span
+      <h2 data-testid={ `customer_products__element-card-title-${index}` }>
+        { name }
+      </h2>
+      <h2
         data-testid={ `customer_products__element-card-price-${index}` }
       >
-        { price }
-      </span>
+        { price.replace('.', ',') }
+      </h2>
       <img
         height="100px"
         width="100px"
@@ -16,15 +19,12 @@ export default function CardProduct({ price, urlImage, name, index }) {
         src={ urlImage }
         alt="Imagem do produto"
       />
-      <h2 data-testid={ `customer_products__element-card-title-${index}` }>
-        { name }
-      </h2>
       <div>
         <button
           type="button"
-          data-testid={ `customer_products__button-card-rm-item-${index}` }
+          data-testid={ `customer_products__button-card-add-item-${index}` }
         >
-          -
+          +
         </button>
         <input
           type="number"
@@ -34,9 +34,9 @@ export default function CardProduct({ price, urlImage, name, index }) {
         />
         <button
           type="button"
-          data-testid={ `customer_products__button-card-add-item-${index}` }
+          data-testid={ `customer_products__button-card-rm-item-${index}` }
         >
-          +
+          -
         </button>
       </div>
     </div>
