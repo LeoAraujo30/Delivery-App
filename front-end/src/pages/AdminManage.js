@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+const MIN_LENGHT_PASS = 6;
+const MIN_LENGHT_NAME = 12;
 
 function AdminManage() {
-//   const isValidEmail = (emailAddress) => /\S+@\S+\.\S+/.test(emailAddress);
+  const isValidEmail = (emailAddress) => /\S+@\S+\.\S+/.test(emailAddress);
+  const [isButtonDisable, setIsButtonDisable] = useState('');
+  //   const [invalidRegister, setInvalidRegister] = useState(false);
+  const [name, setName] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
+  const [role, setRole] = useState(' ');
+
+  useEffect(() => {
+    if (isValidEmail(email)
+      && password.length >= MIN_LENGHT_PASS
+      && name.length >= MIN_LENGHT_NAME
+      && role !== ' ') {
+      setIsButtonDisable(false);
+    } else {
+      setIsButtonDisable(true);
+    }
+  }, [email, password, name, role]);
 
   return (
     <div>
@@ -12,7 +32,7 @@ function AdminManage() {
           data-testid="admin_manage__input-name"
           type="text"
           placeholder="Nome"
-        //   onChange={ ({ target }) => setEmail(target.value) }
+          onChange={ ({ target }) => setName(target.value) }
         />
       </label>
 
@@ -23,7 +43,7 @@ function AdminManage() {
           data-testid="admin_manage__input-email"
           type="email"
           placeholder="Email"
-        //   onChange={ ({ target }) => setEmail(target.value) }
+          onChange={ ({ target }) => setEmail(target.value) }
         />
       </label>
 
@@ -34,7 +54,7 @@ function AdminManage() {
           data-testid="admin_manage__input-password"
           type="password"
           placeholder="Senha"
-          // onChange={ ({ target }) => setPassword(target.value) }
+          onChange={ ({ target }) => setPassword(target.value) }
         />
       </label>
 
@@ -43,6 +63,7 @@ function AdminManage() {
         <select
           name="select"
           data-testid="admin_manage__select-role"
+          onChange={ ({ target }) => setRole(target.value) }
         >
           <option value=" " defaultValue> </option>
           <option value="seller">Vendedor</option>
@@ -54,7 +75,7 @@ function AdminManage() {
       <button
         data-testid="admin_manage__button-register"
         type="button"
-        // disabled={ isButtonDisable }
+        disabled={ isButtonDisable }
         // onClick={ () => handleClick({ name: username, email, password }) }
       >
         Cadastrar
