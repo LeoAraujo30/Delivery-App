@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AppContext from '../utils/AppContext';
 
 function TableCheckout() {
-  const [products, setProducts] = useState([]);
-  const { setTotalPrice } = useContext(AppContext);
+  const { products, setProducts } = useContext(AppContext);
 
   useEffect(() => {
-    setProducts(JSON.parse(localStorage.getItem('carrinho')));
+    setProducts(JSON.parse(localStorage.getItem('productsCart')));
   }, []);
 
   useEffect(() => {}, [products]);
 
-  removeItemCart = (name) => {
+  const removeItemCart = (name) => {
     const newProducts = products.filter((product) => product.name !== name);
-    localStorage.setItem('carrinho', JSON.stringify(newProducts));
+    localStorage.setItem('productsCart', JSON.stringify(newProducts));
     setProducts(newProducts);
   };
 
-  sumValues = () => {
-    const result = products
-      .reduce((acc, product) => acc + (product.value * product.quantity), 0);
-    setTotalPrice(result);
+  const sumValues = () => {
+    const result = products.reduce((acc, product) => acc + Number(product.subtotal), 0);
     return result;
   };
 
@@ -39,7 +36,7 @@ function TableCheckout() {
         </thead>
         <tbody>
           { products.map((product, index) => {
-            const { name, quantity, value } = product;
+            const { name, quantity, price, subtotal } = product;
             return (
               <tr key={ index }>
                 <td
@@ -68,14 +65,14 @@ function TableCheckout() {
                     `customer_checkout__element-order-table-unit-price-${index}`
                   }
                 >
-                  {`R$ ${value}`}
+                  {`R$ ${price}`}
                 </td>
                 <td
                   data-testid={
                     `customer_checkout__element-order-table-sub-total-${index}`
                   }
                 >
-                  {`R$ ${(value * quantity).toFixed(2)}`}
+                  {`R$ ${Number(subtotal).toFixed(2)}`}
                 </td>
                 <td>
                   <button

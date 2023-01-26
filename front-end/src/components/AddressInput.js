@@ -5,31 +5,30 @@ import AppContext from '../utils/AppContext';
 
 function AddressInput() {
   const [users, setUsers] = useState([]);
-  const [customer, setCustomer] = useState('null');
+  const [customer, setCustomer] = useState('');
   const [seller, setSeller] = useState(null);
   const [address, setAddress] = useState(null);
   const [number, setNumber] = useState(null);
   const [isButtonDisable, setIsButtonDisable] = useState(true);
-  const { totalPrice } = useContext(AppContext);
+  const { products } = useContext(AppContext);
 
   const navigate = useNavigate();
   const handleClick = async (body) => {
     const api = axios.create({
-      baseURL: 'http://localhost:3001/user',
+      baseURL: 'http://localhost:3001/sale',
     });
     try {
       const { data } = await api.post('/register', body);
-      const userObj = { name: username, email, role: 'customer', token: data };
-      localStorage.setItem('user', JSON.stringify(userObj));
-      setInvalidRegister(false);
-      navigate(`/${userObj.role}/products`);
+      // setInvalidRegister(false);
+      navigate(`/customer/orders/${data.id}`);
     } catch (_error) {
-      setInvalidRegister(true);
+      // setInvalidRegister(true);
     }
   };
 
   useEffect(() => {
-    setUsers(JSON.parse(localStorage.getItem('user')));
+    setCustomer(JSON.parse(localStorage.getItem('user')).id);
+    // setUsers(data.filter(({ role }) => role === 'seller'));
   }, []);
 
   useEffect(() => {
@@ -81,7 +80,11 @@ function AddressInput() {
         type="button"
         disabled={ isButtonDisable }
         onClick={ () => handleClick({
-          userId, sellerId: seller, totalPrice, address, number,
+          userId: customer,
+          sellerId: seller,
+          cart: products.map(({ id, quantity }) => ({ productId: id, quantity })),
+          deliveryAddress: address,
+          deliveryNumber: `${number}`,
         }) }
       >
         Finalizar Pedido
