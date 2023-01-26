@@ -35,7 +35,7 @@ function Login() {
       const role = JSON.parse(localStorage.getItem('user'));
       if (role.role === 'customer' || role.role === 'seller') {
         navigate(`/${data.role}/products`);
-      } navigate('/admin/manage');
+      } else { navigate('/admin/manage'); }
     } catch (_error) {
       setinvalidLogin(true);
     }
