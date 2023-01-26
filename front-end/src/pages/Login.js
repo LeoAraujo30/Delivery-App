@@ -32,7 +32,10 @@ function Login() {
       console.log(data);
       localStorage.setItem('user', JSON.stringify(data));
       setinvalidLogin(false);
-      navigate(`/${data.role}/products`);
+      const role = JSON.parse(localStorage.getItem('user'));
+      if (role.role === 'customer' || role.role === 'seller') {
+        navigate(`/${data.role}/products`);
+      } navigate('/admin/manage');
     } catch (_error) {
       setinvalidLogin(true);
     }
