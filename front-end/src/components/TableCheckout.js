@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import AppContext from '../utils/AppContext';
 
 function TableCheckout() {
   const [products, setProducts] = useState([]);
+  const { setTotalPrice } = useContext(AppContext);
 
   useEffect(() => {
     setProducts(JSON.parse(localStorage.getItem('carrinho')));
@@ -15,9 +17,10 @@ function TableCheckout() {
     setProducts(newProducts);
   };
 
-  totalPrice = () => {
+  sumValues = () => {
     const result = products
       .reduce((acc, product) => acc + (product.value * product.quantity), 0);
+    setTotalPrice(result);
     return result;
   };
 
@@ -91,7 +94,7 @@ function TableCheckout() {
         </tbody>
       </table>
       <h2 data-testid="customer_checkout__element-order-total-price">
-        {`Total: R$ ${totalPrice().toFixed(2)}`}
+        {`Total: R$ ${sumValues().toFixed(2)}`}
       </h2>
     </div>
   );
