@@ -21,7 +21,7 @@ function AdminManage() {
       baseURL: 'http://localhost:3001/user',
     });
     try {
-      await api.post('/registerByAdm', body);
+      await api.post('/registerByAdm', body, { headers: { Authorization: token } });
       setInvalidRegister(false);
     } catch (_error) {
       setInvalidRegister(true);
@@ -92,7 +92,7 @@ function AdminManage() {
         data-testid="admin_manage__button-register"
         type="button"
         disabled={ isButtonDisable }
-        onClick={ () => handleClick({ name, email, password, role, token }) }
+        onClick={ () => handleClick({ name, email, password, role }) }
       >
         Cadastrar
       </button>
