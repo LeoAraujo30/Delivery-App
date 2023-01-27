@@ -6,6 +6,7 @@ function AppProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [products, setProducts] = useState([]);
 
   const provider = useMemo(() => ({ email,
     setEmail,
@@ -13,7 +14,9 @@ function AppProvider({ children }) {
     setPassword,
     username,
     setUsername,
-  }), [email, password, username]);
+    products,
+    setProducts,
+  }), [email, password, username, products]);
 
   return (
     <AppContex.Provider value={ provider }>

@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useAlert } from 'react-alert';
 import axios from 'axios';
 import rockGlass from '../images/rockGlass.svg';
 import AppContext from '../utils/AppContext';
@@ -11,17 +10,8 @@ function Login() {
   const [isButtonDisable, setIsButtonDisable] = useState('');
   const [invalidLogin, setinvalidLogin] = useState(false);
   const { email, setEmail, password, setPassword } = useContext(AppContext);
-  // const alert = useAlert();
-  // const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
-  // const handleLoginClick = (values) => {
-  //   Axios.post('http://localhost:3001/user/login', values).then((response) => {
-  //     if (typeof response === 'string') {
-  //       return 'não';
-  //     } return 'sim';
-  //   });
-  // };
 
   const handleLoginClick = async (body) => {
     const api = axios.create({
@@ -29,7 +19,6 @@ function Login() {
     });
     try {
       const { data } = await api.post('/login', body);
-      console.log(data);
       localStorage.setItem('user', JSON.stringify(data));
       setinvalidLogin(false);
       const role = JSON.parse(localStorage.getItem('user'));

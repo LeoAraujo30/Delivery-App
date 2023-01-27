@@ -18,8 +18,14 @@ const registerByAdm = async (req, res) => {
   return res.status(serviceResponse.status).json(serviceResponse.message);
 };
 
+const getAllSeller = async (_req, res) => {
+  const serviceResponse = await userService.getAllSeller();
+  return res.status(serviceResponse.status).json(serviceResponse.message);
+};
+
 module.exports = {
   userLogin,
   register,
   registerByAdm,
+  getAllSeller,
 };

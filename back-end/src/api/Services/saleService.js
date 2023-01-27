@@ -1,28 +1,32 @@
-const Sequelize = require('sequelize');
+// const Sequelize = require('sequelize');
 const { Product, Sale, SalesProduct } = require('../../database/models');
-const config = require('../../database/config/config');
+// const config = require('../../database/config/config');
 const { totalPriceCalculator } = require('../utils/saleFuncsAux');
+const tokenServices = require('../Helpers/tokenFunctions');
 
-const env = process.env.NODE_ENV || 'development';
+// const env = process.env.NODE_ENV || 'development';
 
-const sequelize = new Sequelize(config[env]);
+// const sequelize = new Sequelize(config[env]);
 
-const register = async (bodyObject) => {
+const register = async (bodyObject, token) => {
+  const tokenValidate = tokenServices.validateToken(token);
+  if (!tokenValidate.data) return tokenValidate;
+
   const { userId, sellerId, deliveryAddress, deliveryNumber, cart } = bodyObject;
 
   const products = await Product.findAll({ where: { id: cart.map(({ productId }) => productId) } });
 
-  const t = await sequelize.transaction();
+  // const t = await sequelize.transaction();
   try {
     const totalPrice = totalPriceCalculator(products, cart);
     const sale = await Sale.create(
       { userId, sellerId, deliveryAddress, deliveryNumber, status: 'Pendente', totalPrice }, 
-      { transaction: t },
+      // { transaction: t },
     );
   
     await SalesProduct
-     .bulkCreate(cart.map(({ productId, quantity }) => ({ quantity, productId, saleId: sale.id })), 
-     { transaction: t });
+     .bulkCreate(cart.map(({ productId, quantity }) => ({ quantity, productId, saleId: sale.id })));
+     //  { transaction: t },
 
     return { status: 201, message: sale };
   } catch (err) {
