@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { Product, Sale, SalesProduct } = require('../../database/models');
+const { Product, Sale, SalesProduct, User } = require('../../database/models');
 const config = require('../../database/config/config');
 const { totalPriceCalculator } = require('../utils/saleFuncsAux');
 
@@ -24,12 +24,37 @@ const register = async (bodyObject) => {
      .bulkCreate(cart.map(({ productId, quantity }) => ({ quantity, productId, saleId: sale.id })), 
      { transaction: t });
 
+    await t.commit();
+
     return { status: 201, message: sale };
   } catch (err) {
+    await t.rollback();
+
     return { status: 500, message: 'internal serve error' };
   }
 };
 
+const getUserOrder = async (userId) => {
+    const orderFromUser = await Sale.findAll({ where: { userId } });
+    return { status: 200, message: orderFromUser };
+};
+
+const getSaleDetails = async (saleId) => {
+  const saleDetails = await Sale.findOne(
+    { 
+      where: { id: saleId },
+      attributes: { exclude: ['sellerId'] },
+      include: [
+        { model: User, as: 'seller', attributes: ['id', 'name'] }, 
+        { model: Product, as: 'products', through: { attributes: ['quantity'] } },
+      ],
+    },
+  );
+  return { status: 200, message: saleDetails };
+};
+
 module.exports = {
   register,
+  getUserOrder,
+  getSaleDetails,
 };
