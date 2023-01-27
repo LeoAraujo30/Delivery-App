@@ -13,6 +13,9 @@ function AdminManage() {
   const [password, setPassword] = useState(false);
   const [role, setRole] = useState(' ');
 
+  const lsUser = JSON.parse(localStorage.getItem('user'));
+  const { token } = lsUser;
+
   const handleClick = async (body) => {
     const api = axios.create({
       baseURL: 'http://localhost:3001/user',
@@ -89,7 +92,7 @@ function AdminManage() {
         data-testid="admin_manage__button-register"
         type="button"
         disabled={ isButtonDisable }
-        onClick={ () => handleClick({ name, email, password, role }) }
+        onClick={ () => handleClick({ name, email, password, role, token }) }
       >
         Cadastrar
       </button>
