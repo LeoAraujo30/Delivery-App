@@ -34,8 +34,8 @@ const registerByAdm = async (newUserByAdm) => {
   const check1 = await User.findOne({ where: { email: newUserByAdm.email } });
   const check2 = await User.findOne({ where: { name: newUserByAdm.name } });
   if (check1 || check2) return { status: 409, message: 'Conflict' };
-  const { password: _, token: __, ...userWithoutPassToken } = newUserByAdm;
   const admTokenValidate = tokenServices.validateToken(newUserByAdm.token);
+  const { password: _, token: __, ...userWithoutPassToken } = newUserByAdm;
   if (!admTokenValidate.data) return { status: 409, message: 'The token is not from an admin' };
   if (admTokenValidate.data.role === 'administrator') {
     await User.create({
