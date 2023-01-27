@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import AppContext from '../utils/AppContext';
 
-// const adasd = 2,20;
-
 function TableCheckout() {
   const { products, setProducts } = useContext(AppContext);
 

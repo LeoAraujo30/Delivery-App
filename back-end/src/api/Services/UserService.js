@@ -49,7 +49,7 @@ const registerByAdm = async (newUserByAdm) => {
 };
 
 const getAllSeller = async () => {
-  const users = await User.findAll({ where: { role: 'seller' } })
+  const users = await User.findAll({ where: { role: 'seller' } });
   return { status: 200, message: users };
 };
 
