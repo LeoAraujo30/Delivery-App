@@ -18,7 +18,7 @@ function AdminManage() {
       baseURL: 'http://localhost:3001/user',
     });
     try {
-      await api.post('/register', body);
+      await api.post('/registerByAdm', body);
       setInvalidRegister(false);
     } catch (_error) {
       setInvalidRegister(true);
