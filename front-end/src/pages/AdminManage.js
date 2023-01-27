@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const MIN_LENGHT_PASS = 6;
 const MIN_LENGHT_NAME = 12;
@@ -6,11 +7,23 @@ const MIN_LENGHT_NAME = 12;
 function AdminManage() {
   const isValidEmail = (emailAddress) => /\S+@\S+\.\S+/.test(emailAddress);
   const [isButtonDisable, setIsButtonDisable] = useState('');
-  //   const [invalidRegister, setInvalidRegister] = useState(false);
+  const [invalidRegister, setInvalidRegister] = useState(false);
   const [name, setName] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
   const [role, setRole] = useState(' ');
+
+  const handleClick = async (body) => {
+    const api = axios.create({
+      baseURL: 'http://localhost:3001/user',
+    });
+    try {
+      await api.post('/register', body);
+      setInvalidRegister(false);
+    } catch (_error) {
+      setInvalidRegister(true);
+    }
+  };
 
   useEffect(() => {
     if (isValidEmail(email)
@@ -76,10 +89,16 @@ function AdminManage() {
         data-testid="admin_manage__button-register"
         type="button"
         disabled={ isButtonDisable }
-        // onClick={ () => handleClick({ name: username, email, password }) }
+        onClick={ () => handleClick({ name, email, password, role }) }
       >
         Cadastrar
       </button>
+
+      { (invalidRegister) ? (
+        <span data-testid="admin_manage__element-invalid-register">
+          Dados Invalidos
+        </span>
+      ) : ''}
 
     </div>
   );

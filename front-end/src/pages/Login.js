@@ -93,7 +93,7 @@ function Login() {
         { invalidLogin
           ? (
             <div data-testid="common_login__element-invalid-email">
-              Oh look, an alert!
+              Email e/ou senha incorretos
             </div>
           )
           : '' }
