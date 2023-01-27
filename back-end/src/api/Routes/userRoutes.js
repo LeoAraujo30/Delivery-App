@@ -9,5 +9,4 @@ userRouter.post('/register', userController.register);
 userRouter.get('/:userId/order', saleController.userOrder);
 userRouter.post('/registerByAdm', userController.registerByAdm);
 
-
 module.exports = userRouter;
