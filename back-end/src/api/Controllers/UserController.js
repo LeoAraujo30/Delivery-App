@@ -14,7 +14,8 @@ const register = async (req, res) => {
 
 const registerByAdm = async (req, res) => {
   const newUserByAdm = req.body;
-  const serviceResponse = await userService.registerByAdm(newUserByAdm);
+  const token = req.header('Authorization');
+  const serviceResponse = await userService.registerByAdm(newUserByAdm, token);
   return res.status(serviceResponse.status).json(serviceResponse.message);
 };
 
