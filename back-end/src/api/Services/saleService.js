@@ -1,12 +1,12 @@
-const Sequelize = require('sequelize');
+// const Sequelize = require('sequelize');
 const { Product, Sale, SalesProduct } = require('../../database/models');
-const config = require('../../database/config/config');
+// const config = require('../../database/config/config');
 const { totalPriceCalculator } = require('../utils/saleFuncsAux');
 const tokenServices = require('../Helpers/tokenFunctions');
 
-const env = process.env.NODE_ENV || 'development';
+// const env = process.env.NODE_ENV || 'development';
 
-const sequelize = new Sequelize(config[env]);
+// const sequelize = new Sequelize(config[env]);
 
 const register = async (bodyObject, token) => {
   const tokenValidate = tokenServices.validateToken(token);
@@ -25,9 +25,8 @@ const register = async (bodyObject, token) => {
     );
   
     await SalesProduct
-     .bulkCreate(cart.map(({ productId, quantity }) => ({ quantity, productId, saleId: sale.id })), 
-    //  { transaction: t }
-    );
+     .bulkCreate(cart.map(({ productId, quantity }) => ({ quantity, productId, saleId: sale.id })));
+     //  { transaction: t },
 
     return { status: 201, message: sale };
   } catch (err) {
