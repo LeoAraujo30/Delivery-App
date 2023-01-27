@@ -18,7 +18,7 @@ const validateToken = (token) => {
   try {
     const jwtKey = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
     const data = jwt.verify(token, jwtKey);
-    return data; // retorna { iat: data de emissao, exp: data de expiração } em caso de sucesso
+    return data; // retorna {data: { id, name, email, role}, iat: data de emissao, exp: data de expiração } em caso de sucesso
   } catch (_e) {
     return { status: 401, message: 'Expired or invalid token' };
   }
