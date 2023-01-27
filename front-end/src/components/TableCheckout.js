@@ -18,7 +18,7 @@ function TableCheckout() {
 
   const sumValues = () => {
     const result = products.reduce((acc, product) => acc + Number(product.subtotal), 0);
-    return `${result}`;
+    return `${result.toFixed(2)}`;
   };
 
   return (

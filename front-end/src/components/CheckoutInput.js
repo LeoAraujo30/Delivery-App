@@ -18,7 +18,11 @@ function CheckoutInput() {
       baseURL: 'http://localhost:3001/sale',
     });
     try {
-      const { data } = await api.post('/register', body);
+      const { data } = await api.post(
+        '/register',
+        body,
+        { headers: { Authorization: customer.token } },
+      );
       navigate(`/customer/orders/${data.id}`);
     } catch (error) {
       console.log(error);
@@ -31,7 +35,7 @@ function CheckoutInput() {
     });
     const { data } = await api.get('/seller');
     setUsers(data);
-    setCustomer(JSON.parse(localStorage.getItem('user')).id);
+    setCustomer(JSON.parse(localStorage.getItem('user')));
     setSeller(data[0].id);
   };
 
@@ -87,7 +91,7 @@ function CheckoutInput() {
         type="button"
         disabled={ isButtonDisable }
         onClick={ () => handleClick({
-          userId: customer,
+          userId: customer.id,
           sellerId: seller,
           cart: products.map(({ id, quantity }) => ({ productId: id, quantity })),
           deliveryAddress: address,
