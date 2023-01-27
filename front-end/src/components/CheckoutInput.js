@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppContext from '../utils/AppContext';
 
-function AddressInput() {
+function CheckoutInput() {
   const [users, setUsers] = useState([]);
   const [customer, setCustomer] = useState('');
   const [seller, setSeller] = useState(null);
@@ -19,17 +19,23 @@ function AddressInput() {
     });
     try {
       const { data } = await api.post('/register', body);
-      // setInvalidRegister(false);
       navigate(`/customer/orders/${data.id}`);
-    } catch (_error) {
-      // setInvalidRegister(true);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  useEffect(() => {
+  const getData = async () => {
+    const api = axios.create({
+      baseURL: 'http://localhost:3001/user',
+    });
+    const { data } = await api.get('/seller');
+    setUsers(data);
     setCustomer(JSON.parse(localStorage.getItem('user')).id);
-    // setUsers(data.filter(({ role }) => role === 'seller'));
-  }, []);
+    setSeller(data[0].id);
+  };
+
+  useEffect(getData, []);
 
   useEffect(() => {
     if (seller && address && number) {
@@ -46,6 +52,7 @@ function AddressInput() {
           className="select-seller"
           data-testid="customer_checkout__select-seller"
           placeholder="Seller"
+          value={ seller }
           onChange={ ({ target }) => setSeller(target.value) }
         >
           { users
@@ -93,4 +100,4 @@ function AddressInput() {
   );
 }
 
-export default AddressInput;
+export default CheckoutInput;

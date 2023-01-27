@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import AppContext from '../utils/AppContext';
 
+// const adasd = 2,20;
+
 function TableCheckout() {
   const { products, setProducts } = useContext(AppContext);
 
@@ -18,7 +20,7 @@ function TableCheckout() {
 
   const sumValues = () => {
     const result = products.reduce((acc, product) => acc + Number(product.subtotal), 0);
-    return result;
+    return `${result}`;
   };
 
   return (
@@ -65,14 +67,14 @@ function TableCheckout() {
                     `customer_checkout__element-order-table-unit-price-${index}`
                   }
                 >
-                  {`R$ ${price}`}
+                  {`${price.split('.')}`}
                 </td>
                 <td
                   data-testid={
                     `customer_checkout__element-order-table-sub-total-${index}`
                   }
                 >
-                  {`R$ ${Number(subtotal).toFixed(2)}`}
+                  {`${subtotal.split('.')}`}
                 </td>
                 <td>
                   <button
@@ -91,7 +93,7 @@ function TableCheckout() {
         </tbody>
       </table>
       <h2 data-testid="customer_checkout__element-order-total-price">
-        {`Total: R$ ${sumValues().toFixed(2)}`}
+        {`Total: R$ ${sumValues().split('.')}`}
       </h2>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
-import AddressInput from '../components/AddressInput';
+import AddressInput from '../components/CheckoutInput';
+import Navbar from '../components/Navbar';
 import TableCheckout from '../components/TableCheckout';
 
 function Checkout() {
@@ -7,6 +8,7 @@ function Checkout() {
     <div>
       <h2>Checkout</h2>
       <div>
+        <Navbar />
         <TableCheckout />
         <AddressInput />
       </div>

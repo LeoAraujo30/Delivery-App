@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 // import './index.css';
 import App from './App';
 import Provider from './utils/Provider';
+import CartProvider from './store/Cart.provider';
 
 const options = {
   // you can also just use 'bottom center'
@@ -20,9 +21,11 @@ const options = {
 ReactDOM.render(
   <BrowserRouter>
     <Provider>
-      <AlertProvider template={ AlertTemplate } { ...options }>
-        <App />
-      </AlertProvider>
+      <CartProvider>
+        <AlertProvider template={ AlertTemplate } { ...options }>
+          <App />
+        </AlertProvider>
+      </CartProvider>
     </Provider>
   </BrowserRouter>,
   document.getElementById('root'),
