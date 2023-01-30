@@ -25,9 +25,9 @@ const register = async (bodyObject, token) => {
     );
   
     await SalesProduct
-     .bulkCreate(cart.map(({ productId, quantity }) => ({ quantity, productId, saleId: sale.id }))
-        { transaction: t },
-      );
+     .bulkCreate(cart.map(({ productId, quantity }) => ({ quantity, productId, saleId: sale.id })), 
+     { transaction: t });
+
     await t.commit();
 
     return { status: 201, message: sale };
