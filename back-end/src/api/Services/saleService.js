@@ -2,16 +2,12 @@ const Sequelize = require('sequelize');
 const { Product, Sale, SalesProduct, User } = require('../../database/models');
 const config = require('../../database/config/config');
 const { totalPriceCalculator } = require('../utils/saleFuncsAux');
-const tokenServices = require('../Helpers/tokenFunctions');
 
 const env = process.env.NODE_ENV || 'development';
 
 const sequelize = new Sequelize(config[env]);
 
-const register = async (bodyObject, token) => {
-  const tokenValidate = tokenServices.validateToken(token);
-  if (!tokenValidate.data) return tokenValidate;
-
+const register = async (bodyObject) => {
   const { userId, sellerId, deliveryAddress, deliveryNumber, cart } = bodyObject;
 
   const products = await Product.findAll({ where: { id: cart.map(({ productId }) => productId) } });
