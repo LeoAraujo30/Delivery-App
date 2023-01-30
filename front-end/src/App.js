@@ -6,6 +6,7 @@ import AdminManage from './pages/AdminManage';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Register from './pages/Register';
+import CustomerOrders from './pages/CustomerOrders';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route exact path="/register" element={ <Register /> } />
       <Route exact path="/:role/products" element={ <Products /> } />
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
+      <Route exact path="/customer/orders/:id" element={ <CustomerOrders /> } />
       <Route exact path="/admin/manage" element={ <AdminManage /> } />
     </Routes>
   );
