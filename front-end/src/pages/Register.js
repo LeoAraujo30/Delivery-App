@@ -21,7 +21,7 @@ function Register() {
       const { data } = await api.post('/register', body);
       localStorage.setItem('user', JSON.stringify(data));
       setInvalidRegister(false);
-      navigate(`/${data.role}/products`);
+      navigate('/customer/products');
     } catch (_error) {
       setInvalidRegister(true);
     }
