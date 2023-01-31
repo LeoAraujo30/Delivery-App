@@ -25,25 +25,30 @@ export default function Navbar() {
 
   const logout = () => {
     localStorage.removeItem('user');
+    if (user.role === 'customer') localStorage.removeItem('productsCart');
     navigate('/login');
   };
 
   const customerNavbar = (
     <nav>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-products"
-        onClick={ () => navigate('/customer/products') }
-      >
-        Products
-      </button>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate('/customer/orders') }
-      >
-        Orders
-      </button>
+      { user.role === 'customer' ? (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => navigate('/customer/products') }
+        >
+          Products
+        </button>
+      ) : ''}
+      { user.role !== 'administrator' ? (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-orders"
+          onClick={ () => navigate(`/${user.role}/orders`) }
+        >
+          Orders
+        </button>
+      ) : ''}
       <button
         type="button"
         data-testid="customer_products__element-navbar-user-full-name"
