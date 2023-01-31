@@ -20,13 +20,13 @@ const register = async (newUser) => {
   const { password: _, ...userWithoutPassword } = newUser;
   if (!newUser.role) {
     const token = tokenServices.createToken(userWithoutPassword);
-    await User.create({
+    const { dataValues: { id, name, email, role } } = await User.create({
       name: newUser.name,
       email: newUser.email,
       password: crypto.createHash('md5').update(newUser.password).digest('hex'),
       role: 'customer',
     });
-    return { status: 201, message: token };
+    return { status: 201, message: { id, name, email, role, token } };
   }
 };
 

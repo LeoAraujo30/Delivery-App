@@ -1,9 +1,14 @@
 import React from 'react';
-import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default function CustomerOrderCard({ id, status, saleDate, price }) {
+export default function CustomerOrderCard({ id, status, saleDate, totalPrice }) {
+  const handleDate = () => {
+    if (saleDate) {
+      const arrayDate = (saleDate.split('T'))[0].split('-');
+      return `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
+    }
+  };
   return (
     <Link to={ `/customer/orders/${id}` }>
       <div>
@@ -22,12 +27,12 @@ export default function CustomerOrderCard({ id, status, saleDate, price }) {
             <div
               data-testid={ `customer_orders__element-order-date-${id}` }
             >
-              { format(Date.parse(saleDate), 'dd/MM/yyyy') }
+              { handleDate() }
             </div>
             <div
               data-testid={ `customer_orders__element-card-price-${id}` }
             >
-              { price.replace('.', ',') }
+              { totalPrice.replace('.', ',') }
             </div>
           </div>
         </div>
@@ -40,5 +45,5 @@ CustomerOrderCard.propTypes = {
   id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   saleDate: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
 };

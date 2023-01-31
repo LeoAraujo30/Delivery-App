@@ -30,17 +30,19 @@ export default function Navbar() {
 
   const customerNavbar = (
     <nav>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-products"
-        onClick={ () => navigate('/customer/products') }
-      >
-        Products
-      </button>
+      { user.role === 'customer' ? (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => navigate('/customer/products') }
+        >
+          Products
+        </button>
+      ) : ''}
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate('/customer/orders/:id') }
+        onClick={ () => navigate(`/${user.role}/orders`) }
       >
         Orders
       </button>

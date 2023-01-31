@@ -19,10 +19,9 @@ function Register() {
     });
     try {
       const { data } = await api.post('/register', body);
-      const userObj = { name: username, email, role: 'customer', token: data };
-      localStorage.setItem('user', JSON.stringify(userObj));
+      localStorage.setItem('user', JSON.stringify(data));
       setInvalidRegister(false);
-      navigate(`/${userObj.role}/products`);
+      navigate('/customer/products');
     } catch (_error) {
       setInvalidRegister(true);
     }

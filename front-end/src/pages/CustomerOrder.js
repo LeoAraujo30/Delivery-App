@@ -1,5 +1,5 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import fetchAuth from '../api/fetchAuth';
 import CustomerOrderCard from '../components/CustomerOrderCard';
 import Navbar from '../components/Navbar';
 
@@ -10,8 +10,13 @@ export default function CustomerOrder() {
   useEffect(() => {
     async function getOrders() {
       try {
+        const PORT = 3001;
+        const api = axios.create({
+          baseURL: `http://localhost:${PORT}`,
+        });
         const headers = { headers: { authorization: token } };
-        await fetchAuth(`/sale/user/${id}`, headers, setOrders);
+        const { data } = await api.get(`/user/${id}/order`, headers);
+        setOrders(data);
       } catch (error) {
         console.log(error);
       }
