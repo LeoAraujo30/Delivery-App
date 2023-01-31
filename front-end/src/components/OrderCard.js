@@ -8,7 +8,9 @@ export default function OrderCard({ id, status, address, totalPrice, date }) {
     <div
       onClick={ () => navigate(`/seller/orders/${id}`) }
       aria-hidden="true"
+      key={ id }
     >
+      <h3>###############################</h3>
       <h4>Pedido</h4>
       <h2 data-testid={ `seller_orders__element-order-id-${id}` }>
         { `${id}` }
@@ -25,6 +27,7 @@ export default function OrderCard({ id, status, address, totalPrice, date }) {
       <h2 data-testid={ `seller_orders__element-card-price-${id}` }>
         { `${totalPrice}` }
       </h2>
+      <h3>###############################</h3>
     </div>
   );
 }
