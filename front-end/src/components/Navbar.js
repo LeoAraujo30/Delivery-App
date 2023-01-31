@@ -40,7 +40,7 @@ export default function Navbar() {
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate('/customer/orders') }
+        onClick={ () => navigate('/customer/orders/:id') }
       >
         Orders
       </button>
