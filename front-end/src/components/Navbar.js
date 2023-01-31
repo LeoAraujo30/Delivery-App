@@ -25,6 +25,7 @@ export default function Navbar() {
 
   const logout = () => {
     localStorage.removeItem('user');
+    if (user.role === 'customer') localStorage.removeItem('productsCart');
     navigate('/login');
   };
 

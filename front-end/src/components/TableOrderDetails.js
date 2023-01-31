@@ -30,10 +30,6 @@ function TableOrderDetails() {
   const handleDate = () => {
     if (sale.saleDate) {
       const arrayDate = (sale.saleDate.split('T'))[0].split('-');
-      // const arrayTime = (sale.saleDate.split('T'))[1].split(':');
-      // if (arrayTime[0] === '00' || arrayTime[0] === '01' || arrayTime[0] === '02') {
-      //   return `${Number(arrayDate[2]) - 1}/${arrayDate[1]}/${arrayDate[0]}`;
-      // }
       return `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     }
   };
