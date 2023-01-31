@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Navbar from '../components/Navbar';
 
 const MIN_LENGHT_PASS = 6;
 const MIN_LENGHT_NAME = 12;
@@ -41,6 +42,7 @@ function AdminManage() {
 
   return (
     <div>
+      <Navbar />
       <label htmlFor="name-input">
         Nome:
         <input

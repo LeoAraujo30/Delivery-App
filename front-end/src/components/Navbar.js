@@ -39,13 +39,15 @@ export default function Navbar() {
           Products
         </button>
       ) : ''}
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate(`/${user.role}/orders`) }
-      >
-        Orders
-      </button>
+      { user.role !== 'administrator' ? (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-orders"
+          onClick={ () => navigate(`/${user.role}/orders`) }
+        >
+          Orders
+        </button>
+      ) : ''}
       <button
         type="button"
         data-testid="customer_products__element-navbar-user-full-name"
