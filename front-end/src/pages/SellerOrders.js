@@ -26,7 +26,7 @@ export default function SellerOrders() {
             key={ e.id }
             id={ e.id }
             status={ e.status }
-            address={ e.deliveryAddress }
+            address={ `${e.deliveryAddress}, ${e.deliveryNumber}` }
             totalPrice={ e.totalPrice }
             date={ e.saleDate }
           />
