@@ -18,12 +18,21 @@ export default function UsersTable({ allUsers, getUsers }) {
       </thead>
       <tbody>
         {
-          allUsers.length > 0 && allUsers.map((e) => (
-            <tr key={ e.id }>
-              <td>{ e.name }</td>
-              <td>{ e.email }</td>
-              <td>{ e.role }</td>
-              <td>
+          allUsers.length > 0 && allUsers.map((e, index) => (
+            <tr
+              key={ e.id }
+              data-testid={ `admin_manage__element-user-table-item-number-${index + 1}` }
+            >
+              <td data-testid={ `admin_manage__element-user-table-name-${index + 1}` }>
+                { e.name }
+              </td>
+              <td data-testid={ `admin_manage__element-user-table-email-${index + 1}` }>
+                { e.email }
+              </td>
+              <td data-testid={ `admin_manage__element-user-table-role-${index + 1}` }>
+                { e.role }
+              </td>
+              <td data-testid={ `admin_manage__element-user-table-remove-${index + 1}` }>
                 <button onClick={ () => deleteUser(e.email) } type="button">
                   Deletar
                 </button>
