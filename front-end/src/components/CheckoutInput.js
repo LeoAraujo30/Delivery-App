@@ -23,6 +23,7 @@ function CheckoutInput() {
         body,
         { headers: { Authorization: customer.token } },
       );
+      localStorage.removeItem('productsCart');
       navigate(`/customer/orders/${data.id}`);
     } catch (error) {
       console.log(error);

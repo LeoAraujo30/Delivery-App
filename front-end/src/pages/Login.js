@@ -21,10 +21,13 @@ function Login() {
       const { data } = await api.post('/login', body);
       localStorage.setItem('user', JSON.stringify(data));
       setinvalidLogin(false);
-      const role = JSON.parse(localStorage.getItem('user'));
-      if (role.role === 'customer' || role.role === 'seller') {
-        navigate(`/${data.role}/products`);
-      } else { navigate('/admin/manage'); }
+      if (data.role === 'customer') {
+        navigate('/customer/products');
+      } else if (data.role === 'seller') {
+        navigate('/seller/orders');
+      } else {
+        navigate('/admin/manage');
+      }
     } catch (_error) {
       setinvalidLogin(true);
     }
@@ -33,6 +36,19 @@ function Login() {
   const goToRegister = () => navigate('/register');
 
   const isValidEmail = (emailAddress) => /\S+@\S+\.\S+/.test(emailAddress);
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('user'));
+    if (data) {
+      if (data.role === 'customer') {
+        navigate('/customer/products');
+      } else if (data.role === 'seller') {
+        navigate('/seller/orders');
+      } else {
+        navigate('/admin/manage');
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (isValidEmail(email) && password.length >= MIN_LENGHT_PASS) {
