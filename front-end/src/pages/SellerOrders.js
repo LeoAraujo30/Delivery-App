@@ -6,8 +6,10 @@ import OrderCard from '../components/OrderCard';
 export default function SellerOrders() {
   const [orders, setOrders] = useState([]);
 
+  const lsUser = JSON.parse(localStorage.getItem('user'));
+
   const getOrders = async () => {
-    const data = await fetchSales.fetchSales();
+    const data = await fetchSales.fetchSales(lsUser.id);
     setOrders(data);
   };
 
@@ -24,9 +26,9 @@ export default function SellerOrders() {
             key={ e.id }
             id={ e.id }
             status={ e.status }
-            address={ e.delivery_address }
-            totalPrice={ e.total_price }
-            date={ e.sale_date }
+            address={ e.deliveryAddress }
+            totalPrice={ e.totalPrice }
+            date={ e.saleDate }
           />
         ),
       )}

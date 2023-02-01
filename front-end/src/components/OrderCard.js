@@ -4,13 +4,20 @@ import { useNavigate } from 'react-router-dom';
 
 export default function OrderCard({ id, status, address, totalPrice, date }) {
   const navigate = useNavigate();
+
+  const handleDate = () => {
+    if (date) {
+      const arrayDate = (date.split('T'))[0].split('-');
+      return `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
+    }
+  };
+
   return (
     <div
       onClick={ () => navigate(`/seller/orders/${id}`) }
       aria-hidden="true"
       key={ id }
     >
-      <h3>###############################</h3>
       <h4>Pedido</h4>
       <h2 data-testid={ `seller_orders__element-order-id-${id}` }>
         { `${id}` }
@@ -22,12 +29,11 @@ export default function OrderCard({ id, status, address, totalPrice, date }) {
         { `${address}` }
       </h4>
       <h2 data-testid={ `seller_orders__element-order-date-${id}` }>
-        { `${date}` }
+        { `${handleDate()}` }
       </h2>
       <h2 data-testid={ `seller_orders__element-card-price-${id}` }>
-        { `${totalPrice}` }
+        { `${totalPrice.replace('.', ',')}` }
       </h2>
-      <h3>###############################</h3>
     </div>
   );
 }
