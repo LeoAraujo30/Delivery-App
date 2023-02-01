@@ -26,8 +26,22 @@ const saleDetails = async (req, res) => {
   return res.status(serviceResponse.status).json(serviceResponse.message);
 };
 
+const sellerSales = async (req, res) => {
+  const { sellerId } = req.params;
+  const serviceResponse = await saleService.getSellerSales(+sellerId);
+  return res.status(serviceResponse.status).json(serviceResponse.message);
+};
+
+const updateSaleStatus = async (req, res) => {
+  const { saleId, newStatus } = req.body;
+  const serviceResponse = await saleService.updateSaleStatus(saleId, newStatus);
+  return res.status(serviceResponse.status).json(serviceResponse.message);
+};
+
 module.exports = {
   registerSale,
   userOrder,
   saleDetails,
+  sellerSales,
+  updateSaleStatus,
 };

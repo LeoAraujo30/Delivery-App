@@ -53,8 +53,30 @@ const getSaleDetails = async (saleId) => {
   return { status: 200, message: saleDetails };
 };
 
+const getSellerSales = async (sellerId) => {
+  const sellerSales = await Sale.findAll({ where: { sellerId } });
+  return { status: 200, message: sellerSales };
+};
+
+const updateSaleStatus = async (saleId, newStatus) => {
+  const possibleStatus = ['Pendente', 'Preparando', 'Em Trânsito', 'Entregue'];
+
+  if (!possibleStatus.includes(newStatus)) {
+    return { status: 400, message: 'Invalid status' };
+  }
+
+  await Sale.update({ status: newStatus }, {
+    where: {
+      id: saleId,
+    },
+  });
+  return { status: 200, message: 'Status updated' };
+};
+
 module.exports = {
   register,
   getUserOrder,
   getSaleDetails,
+  getSellerSales,
+  updateSaleStatus,
 };
