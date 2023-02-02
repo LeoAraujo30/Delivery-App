@@ -24,6 +24,7 @@ function App() {
       <Route exact path="/admin/manage" element={ <AdminManage /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
+
     </Routes>
   );
 }
