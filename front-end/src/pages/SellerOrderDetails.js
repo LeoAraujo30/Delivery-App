@@ -5,7 +5,6 @@ import TableSellerOrderDetails from '../components/TableSellerOrderDetails';
 function SellerOrderDetails() {
   return (
     <div>
-      <h2>SellerOrderDetails</h2>
       <div>
         <Navbar />
         <TableSellerOrderDetails />
