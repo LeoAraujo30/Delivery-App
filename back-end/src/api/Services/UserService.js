@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op } = require('sequelize');
 const crypto = require('crypto');
 const { User } = require('../../database/models');
 const tokenServices = require('../Helpers/tokenFunctions');
@@ -58,9 +58,9 @@ const getAllUsers = async () => {
   try {
     const allUsers = await User.findAll({ 
       attributes: { exclude: 'password' }, 
-      where: { role: {[Op.not]: 'administrator'} }
+      where: { role: { [Op.not]: 'administrator' } },
     });
-    return { status: 200, message: allUsers}
+    return { status: 200, message: allUsers };
   } catch (err) {
     return { status: 409, message: err };
   }
@@ -72,12 +72,12 @@ const deleteUser = async (email, token) => {
     if (!admTokenValidate.data) return { status: 401, message: 'The token is not from an admin' };
     if (admTokenValidate.data.role === 'administrator') {
       const deleted = await User.destroy({
-        where: { email }
+        where: { email },
       });
-      if (deleted === 1){
+      if (deleted === 1) {
         return { status: 200, message: 'Sucess' };
-      };
-      return { status: 404, message: 'User not found!'};
+      }
+      return { status: 404, message: 'User not found!' };
     }
   } catch (err) {
     return { status: 409, message: err };
