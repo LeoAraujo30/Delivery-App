@@ -39,7 +39,6 @@ function TableOrderDetails() {
       baseURL: 'http://localhost:3001/sale',
     });
     await api.put('/status', body);
-    console.log(sale);
     setSale({ ...sale, status: body.newStatus });
   };
 

@@ -21,6 +21,9 @@ function Register() {
       const { data } = await api.post('/register', body);
       localStorage.setItem('user', JSON.stringify(data));
       setInvalidRegister(false);
+      setEmail('');
+      setPassword('');
+      setUsername('');
       navigate('/customer/products');
     } catch (_error) {
       setInvalidRegister(true);

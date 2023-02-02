@@ -21,6 +21,8 @@ function Login() {
       const { data } = await api.post('/login', body);
       localStorage.setItem('user', JSON.stringify(data));
       setinvalidLogin(false);
+      setEmail('');
+      setPassword('');
       if (data.role === 'customer') {
         navigate('/customer/products');
       } else if (data.role === 'seller') {
@@ -60,15 +62,15 @@ function Login() {
 
   return (
     <div className="App">
-      <span className="logo">TRYBE</span>
+      <span className="logo">IDrinks</span>
       <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
         Glass
       </object>
-      <h2>Login</h2>
-      <div>
+      <div id="login">
+
         <label htmlFor="email-input">
           <input
-            className="email-input"
+            className="loginInputs"
             data-testid="common_login__input-email"
             type="email"
             placeholder="Email"
@@ -78,7 +80,7 @@ function Login() {
 
         <label htmlFor="password-input">
           <input
-            className="password-input"
+            className="loginInputs"
             data-testid="common_login__input-password"
             type="password"
             placeholder="Password"
@@ -86,29 +88,35 @@ function Login() {
           />
         </label>
 
-        <button
-          data-testid="common_login__button-login"
-          type="button"
-          disabled={ isButtonDisable }
-          onClick={ () => handleLoginClick({ email, password }) }
-        >
-          Login
-        </button>
+        <div>
+          <button
+            id="loginbutton"
+            className="loginbuttons"
+            data-testid="common_login__button-login"
+            type="button"
+            disabled={ isButtonDisable }
+            onClick={ () => handleLoginClick({ email, password }) }
+          >
+            Login
+          </button>
+
+          <button
+            className="loginbuttons"
+            data-testid="common_login__button-register"
+            type="button"
+            onClick={ goToRegister }
+          >
+            Register
+          </button>
+        </div>
 
         { invalidLogin
           ? (
-            <div data-testid="common_login__element-invalid-email">
+            <div id="loginMsg" data-testid="common_login__element-invalid-email">
               Email e/ou senha incorretos
             </div>
           )
           : '' }
-        <button
-          data-testid="common_login__button-register"
-          type="button"
-          onClick={ goToRegister }
-        >
-          Register
-        </button>
       </div>
     </div>
   );
