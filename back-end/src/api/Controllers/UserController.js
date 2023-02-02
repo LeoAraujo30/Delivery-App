@@ -24,9 +24,23 @@ const getAllSeller = async (_req, res) => {
   return res.status(serviceResponse.status).json(serviceResponse.message);
 };
 
+const getAllUsers = async (_req, res) => {
+  const serviceResponse = await userService.getAllUsers();
+  return res.status(serviceResponse.status).json(serviceResponse.message);
+};
+
+const deleteUser = async (req, res) => {
+  const { email } = req.body;
+  const token = req.header('Authorization');
+  const serviceResponse = await userService.deleteUser(email, token);
+  return res.status(serviceResponse.status).json(serviceResponse.message);
+};
+
 module.exports = {
   userLogin,
   register,
   registerByAdm,
   getAllSeller,
+  getAllUsers,
+  deleteUser,
 };

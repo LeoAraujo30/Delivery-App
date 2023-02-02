@@ -60,7 +60,7 @@ function TableSellerOrderDetails() {
         <button
           type="button"
           data-testid="seller_order_details__button-preparing-check"
-          disabled={ sale.status !== 'Entregue' }
+          // disabled={ sale.status !== 'Entregue' }
           // onClick={ () => {} }
         >
           Preparar Pedido

@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import TableSellerOrderDetails from '../components/TableOrderDetails';
+import TableSellerOrderDetails from '../components/TableSellerOrderDetails';
 
 function SellerOrderDetails() {
   return (
