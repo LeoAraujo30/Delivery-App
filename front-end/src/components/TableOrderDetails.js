@@ -34,6 +34,15 @@ function TableOrderDetails() {
     }
   };
 
+  const handleClick = async (body) => {
+    const api = axios.create({
+      baseURL: 'http://localhost:3001/sale',
+    });
+    await api.put('/status', body);
+    console.log(sale);
+    setSale({ ...sale, status: body.newStatus });
+  };
+
   return (
     <div>
       <div>
@@ -60,8 +69,8 @@ function TableOrderDetails() {
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
-          disabled={ sale.status !== 'Entregue' }
-          // onClick={ () => {} }
+          disabled={ sale.status !== 'Em Trânsito' }
+          onClick={ () => { handleClick({ saleId: id, newStatus: 'Entregue' }); } }
         >
           Marcar como entregue
         </button>

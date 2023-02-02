@@ -2,11 +2,18 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-// const idStatus = 'customer_order_details__element-order-details-label-delivery-status';
-
 function TableSellerOrderDetails() {
   const [sale, setSale] = useState({});
   const { id } = useParams();
+
+  const handleClick = async (body) => {
+    const api = axios.create({
+      baseURL: 'http://localhost:3001/sale',
+    });
+    await api.put('/status', body);
+    console.log(sale);
+    setSale({ ...sale, status: body.newStatus });
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -15,6 +22,7 @@ function TableSellerOrderDetails() {
       });
       const { data } = await api.get(`/${id}`);
       setSale(data);
+      console.log(data);
     };
     getData();
   }, []);
@@ -60,8 +68,8 @@ function TableSellerOrderDetails() {
         <button
           type="button"
           data-testid="seller_order_details__button-preparing-check"
-          // disabled={ sale.status !== 'Entregue' }
-          // onClick={ () => {} }
+          disabled={ sale.status !== 'Pendente' }
+          onClick={ () => { handleClick({ saleId: id, newStatus: 'Preparando' }); } }
         >
           Preparar Pedido
         </button>
@@ -69,8 +77,8 @@ function TableSellerOrderDetails() {
         <button
           type="button"
           data-testid="seller_order_details__button-dispatch-check"
-          disabled={ sale.status !== 'Entregue' }
-          // onClick={ () => {} }
+          disabled={ sale.status !== 'Preparando' }
+          onClick={ () => { handleClick({ saleId: id, newStatus: 'Em Trânsito' }); } }
         >
           Saiu pra Entrega
         </button>
