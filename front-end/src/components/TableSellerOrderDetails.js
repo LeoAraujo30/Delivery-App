@@ -11,7 +11,6 @@ function TableSellerOrderDetails() {
       baseURL: 'http://localhost:3001/sale',
     });
     await api.put('/status', body);
-    console.log(sale);
     setSale({ ...sale, status: body.newStatus });
   };
 
@@ -22,7 +21,6 @@ function TableSellerOrderDetails() {
       });
       const { data } = await api.get(`/${id}`);
       setSale(data);
-      console.log(data);
     };
     getData();
   }, []);
@@ -38,10 +36,6 @@ function TableSellerOrderDetails() {
   const handleDate = () => {
     if (sale.saleDate) {
       const arrayDate = (sale.saleDate.split('T'))[0].split('-');
-      // const arrayTime = (sale.saleDate.split('T'))[1].split(':');
-      // if (arrayTime[0] === '00' || arrayTime[0] === '01' || arrayTime[0] === '02') {
-      //   return `${Number(arrayDate[2]) - 1}/${arrayDate[1]}/${arrayDate[0]}`;
-      // }
       return `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     }
   };

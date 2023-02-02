@@ -21,10 +21,9 @@ function App() {
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
       <Route exact path="/customer/orders" element={ <CustomerOrder /> } />
       <Route exact path="/customer/orders/:id" element={ <OrderDetails /> } />
-      <Route exact path="/admin/manage" element={ <AdminManage /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
-
+      <Route exact path="/admin/manage" element={ <AdminManage /> } />
     </Routes>
   );
 }

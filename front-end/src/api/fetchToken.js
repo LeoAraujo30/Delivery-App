@@ -17,7 +17,6 @@ const fetchToken = async (dataTest) => {
   await api.post(endpoint, body)
     .then(({ data }) => {
       setIsFailed(false);
-      console.log(data);
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/customer/products');
     })
