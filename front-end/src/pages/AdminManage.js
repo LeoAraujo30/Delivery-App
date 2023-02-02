@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import fetch from '../api/fetchUser';
+import UsersTable from '../components/UsersTable';
 
 const MIN_LENGHT_PASS = 6;
 const MIN_LENGHT_NAME = 12;
@@ -13,9 +15,19 @@ function AdminManage() {
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
   const [role, setRole] = useState(' ');
+  const [users, setUsers] = useState([]);
 
   const lsUser = JSON.parse(localStorage.getItem('user'));
   const { token } = lsUser;
+
+  const getUsers = async () => {
+    const data = await fetch.fetchUsers();
+    setUsers(data);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   const handleClick = async (body) => {
     const api = axios.create({
@@ -24,6 +36,7 @@ function AdminManage() {
     try {
       await api.post('/registerByAdm', body, { headers: { Authorization: token } });
       setInvalidRegister(false);
+      getUsers();
     } catch (_error) {
       setInvalidRegister(true);
     }
@@ -105,6 +118,8 @@ function AdminManage() {
         </span>
       ) : ''}
 
+      <h1>Tabela de usuários cadastrados</h1>
+      <UsersTable allUsers={ users } getUsers={ getUsers } />
     </div>
   );
 }
