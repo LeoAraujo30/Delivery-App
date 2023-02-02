@@ -2,11 +2,18 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const idStatus = 'customer_order_details__element-order-details-label-delivery-status';
-
-function TableOrderDetails() {
+function TableSellerOrderDetails() {
   const [sale, setSale] = useState({});
   const { id } = useParams();
+
+  const handleClick = async (body) => {
+    const api = axios.create({
+      baseURL: 'http://localhost:3001/sale',
+    });
+    await api.put('/status', body);
+    console.log(sale);
+    setSale({ ...sale, status: body.newStatus });
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -15,6 +22,7 @@ function TableOrderDetails() {
       });
       const { data } = await api.get(`/${id}`);
       setSale(data);
+      console.log(data);
     };
     getData();
   }, []);
@@ -30,49 +38,49 @@ function TableOrderDetails() {
   const handleDate = () => {
     if (sale.saleDate) {
       const arrayDate = (sale.saleDate.split('T'))[0].split('-');
+      // const arrayTime = (sale.saleDate.split('T'))[1].split(':');
+      // if (arrayTime[0] === '00' || arrayTime[0] === '01' || arrayTime[0] === '02') {
+      //   return `${Number(arrayDate[2]) - 1}/${arrayDate[1]}/${arrayDate[0]}`;
+      // }
       return `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     }
-  };
-
-  const handleClick = async (body) => {
-    const api = axios.create({
-      baseURL: 'http://localhost:3001/sale',
-    });
-    await api.put('/status', body);
-    console.log(sale);
-    setSale({ ...sale, status: body.newStatus });
   };
 
   return (
     <div>
       <div>
         <h3
-          data-testid="customer_order_details__element-order-details-label-order-id"
+          data-testid="seller_order_details__element-order-details-label-order-id"
         >
           {sale.id}
         </h3>
         <h3
-          data-testid="customer_order_details__element-order-details-label-seller-name"
-        >
-          { sale.seller ? sale.seller.name : ''}
-        </h3>
-        <h3
-          data-testid="customer_order_details__element-order-details-label-order-date"
-        >
-          {handleDate()}
-        </h3>
-        <h3
-          data-testid={ idStatus }
+          data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
           {sale.status}
         </h3>
+        <h3
+          data-testid="seller_order_details__element-order-details-label-order-date"
+        >
+          {handleDate()}
+        </h3>
+
         <button
           type="button"
-          data-testid="customer_order_details__button-delivery-check"
-          disabled={ sale.status !== 'Em Trânsito' }
-          onClick={ () => { handleClick({ saleId: id, newStatus: 'Entregue' }); } }
+          data-testid="seller_order_details__button-preparing-check"
+          disabled={ sale.status !== 'Pendente' }
+          onClick={ () => { handleClick({ saleId: id, newStatus: 'Preparando' }); } }
         >
-          Marcar como entregue
+          Preparar Pedido
+        </button>
+
+        <button
+          type="button"
+          data-testid="seller_order_details__button-dispatch-check"
+          disabled={ sale.status !== 'Preparando' }
+          onClick={ () => { handleClick({ saleId: id, newStatus: 'Em Trânsito' }); } }
+        >
+          Saiu pra Entrega
         </button>
       </div>
       <table>
@@ -92,35 +100,35 @@ function TableOrderDetails() {
               <tr key={ index }>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-item-number-${index}`
+                    `seller_order_details__element-order-table-item-number-${index}`
                   }
                 >
                   {index + 1}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-name-${index}`
+                    `seller_order_details__element-order-table-name-${index}`
                   }
                 >
                   {name}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-quantity-${index}`
+                    `seller_order_details__element-order-table-quantity-${index}`
                   }
                 >
                   {quantity}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-unit-price-${index}`
+                    `seller_order_details__element-order-table-unit-price-${index}`
                   }
                 >
                   {`${price.split('.')}`}
                 </td>
                 <td
                   data-testid={
-                    `customer_order_details__element-order-table-sub-total-${index}`
+                    `seller_order_details__element-order-table-sub-total-${index}`
                   }
                 >
                   {`${(Number(price) * quantity).toFixed(2)}`.replace('.', ',')}
@@ -130,11 +138,11 @@ function TableOrderDetails() {
           }) : '' }
         </tbody>
       </table>
-      <h2 data-testid="customer_order_details__element-order-total-price">
+      <h2 data-testid="seller_order_details__element-order-total-price">
         { sale.products ? `Total: R$ ${sumValues().split('.')}` : ''}
       </h2>
     </div>
   );
 }
 
-export default TableOrderDetails;
+export default TableSellerOrderDetails;
