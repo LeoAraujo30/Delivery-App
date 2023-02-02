@@ -1,7 +1,7 @@
 .App {
   align-items: center;
-  background: #0fa36b;
-  color: #464646;
+  background: #14348b;
+  color: #c4cfe7;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
@@ -12,7 +12,7 @@
 
 .App > .logo {
   animation: shake 1.5s infinite ease;
-  color: aliceblue;
+  color: #c4cfe7;
   font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
@@ -51,4 +51,106 @@
   100% {
     transform: rotate(-10deg);
   }
+}
+
+body {
+  border: 0;
+  margin: 0;
+  background: #ffffff;
+}
+
+#navbar {
+  align-items: center;
+  background: #14348b;
+  color: #c4cfe7;
+  display: flex;
+  flex-flow: row;
+  height: 10vh;
+  justify-content: space-around;
+  top: 0%;
+  width: 100%;
+}
+
+.navbarButton {
+  background: #14348b;
+  border: 0;
+  color: #c4cfe7;
+  font-size: larger;
+  height: 10vh;
+  width: 20%;
+}
+
+#products {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.productsCard {
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 10px 2px;
+  display: flex;
+  flex-flow: column;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  justify-content: center;
+  margin: 10px;
+}
+#productsCardInput {
+  width: 25%;
+}
+
+#productsCardButtons {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
+#cartButton {
+  background: #14348b;
+  border: 0;
+  border-radius: 6px;
+  color: #c4cfe7;
+  font-size: larger;
+  height: 50px;
+  width: 100%;
+}
+
+.pages {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+#login {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.loginInputs {
+  height: 25px;
+  margin: 3px;
+  width: 100%
+}
+
+#loginbutton {
+  margin-left: 17px;
+}
+
+.loginbuttons {
+  gap: 10px;
+  height: 25px;
+  margin: 3px;
+  width: 90px
+}
+
+#loginMsg {
+  margin-top: 15px;
+  margin-left: 15px;
 }

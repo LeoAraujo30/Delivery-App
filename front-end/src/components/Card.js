@@ -48,7 +48,7 @@ export default function CardProduct({ price, urlImage, name, id, showItens }) {
   }, [quantity]);
 
   return (
-    <div>
+    <div className="productsCard">
       <h2 data-testid={ `customer_products__element-card-title-${id}` }>
         { name }
       </h2>
@@ -64,7 +64,7 @@ export default function CardProduct({ price, urlImage, name, id, showItens }) {
         src={ urlImage }
         alt="Imagem do produto"
       />
-      <div>
+      <div id="productsCardButtons">
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
@@ -73,6 +73,7 @@ export default function CardProduct({ price, urlImage, name, id, showItens }) {
           +
         </button>
         <input
+          id="productsCardInput"
           type="number"
           min="0"
           data-testid={ `customer_products__input-card-quantity-${id}` }

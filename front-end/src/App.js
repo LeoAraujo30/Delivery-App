@@ -1,5 +1,5 @@
 import React from 'react';
-// import './App.css';
+import './App.css';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Checkout from './pages/Checkout';
 import AdminManage from './pages/AdminManage';

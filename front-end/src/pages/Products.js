@@ -10,7 +10,7 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [disable, setDisable] = useState(true);
   const [showTotalPrice, setShowTotalPrice] = useState(0);
-  const { cart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const showItens = [];
 
   useEffect(() => {
@@ -34,29 +34,32 @@ export default function Products() {
   }, []);
 
   return (
-    <>
+    <div className="pages">
       <Navbar />
-      { products.map(
-        ({ price, urlImage, name, id }) => (
-          <Card
-            key={ id }
-            id={ id }
-            price={ price }
-            urlImage={ urlImage }
-            name={ name }
-            showItens={ showItens }
-          />
-        ),
-      )}
+      <div id="products">
+        { products.map(
+          ({ price, urlImage, name, id }) => (
+            <Card
+              key={ id }
+              id={ id }
+              price={ price }
+              urlImage={ urlImage }
+              name={ name }
+              showItens={ showItens }
+            />
+          ),
+        )}
+      </div>
       <Link
         to="/customer/checkout"
         data-testid="customer_products__checkout-bottom-value"
       >
         <button
+          id="cartButton"
           disabled={ disable }
           type="button"
           data-testid="customer_products__button-cart"
-          onClick={ () => setLocalStorage('productsCart', cart) }
+          onClick={ () => { setLocalStorage('productsCart', cart); setCart([]); } }
         >
           Ver carrinho: R$
           {
@@ -64,6 +67,6 @@ export default function Products() {
           }
         </button>
       </Link>
-    </>
+    </div>
   );
 }

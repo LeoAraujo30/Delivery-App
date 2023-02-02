@@ -6,7 +6,6 @@ import TableCheckout from '../components/TableCheckout';
 function Checkout() {
   return (
     <div>
-      <h2>Checkout</h2>
       <div>
         <Navbar />
         <TableCheckout />

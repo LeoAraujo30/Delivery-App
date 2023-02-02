@@ -30,9 +30,10 @@ export default function Navbar() {
   };
 
   const customerNavbar = (
-    <nav>
+    <nav id="navbar">
       { user.role === 'customer' ? (
         <button
+          className="navbarButton"
           type="button"
           data-testid="customer_products__element-navbar-link-products"
           onClick={ () => navigate('/customer/products') }
@@ -42,6 +43,7 @@ export default function Navbar() {
       ) : ''}
       { user.role !== 'administrator' ? (
         <button
+          className="navbarButton"
           type="button"
           data-testid="customer_products__element-navbar-link-orders"
           onClick={ () => navigate(`/${user.role}/orders`) }
@@ -49,14 +51,13 @@ export default function Navbar() {
           Orders
         </button>
       ) : ''}
-      <button
-        type="button"
+      <h3
         data-testid="customer_products__element-navbar-user-full-name"
-        // onClick={ () => navigate('/profile')}
       >
         { user.userName }
-      </button>
+      </h3>
       <button
+        className="navbarButton"
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ () => logout() }
