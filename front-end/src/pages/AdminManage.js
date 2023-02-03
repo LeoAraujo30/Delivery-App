@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from '../components/Navbar';
 import fetch from '../api/fetchUser';
 import UsersTable from '../components/UsersTable';
+import '../css/AdminManage.css';
 
 const MIN_LENGHT_PASS = 6;
 const MIN_LENGHT_NAME = 12;
@@ -56,67 +57,71 @@ function AdminManage() {
   return (
     <div>
       <Navbar />
-      <label htmlFor="name-input">
-        Nome:
-        <input
-          className="name-input"
-          data-testid="admin_manage__input-name"
-          type="text"
-          placeholder="Nome"
-          onChange={ ({ target }) => setName(target.value) }
-        />
-      </label>
+      <div className="div-form">
+        <label htmlFor="name-input">
+          Nome:
+          <input
+            className="name-input"
+            data-testid="admin_manage__input-name"
+            type="text"
+            placeholder="Nome"
+            onChange={ ({ target }) => setName(target.value) }
+          />
+        </label>
 
-      <label htmlFor="email-input">
-        Email:
-        <input
-          className="email-input"
-          data-testid="admin_manage__input-email"
-          type="email"
-          placeholder="Email"
-          onChange={ ({ target }) => setEmail(target.value) }
-        />
-      </label>
+        <label htmlFor="email-input">
+          Email:
+          <input
+            className="email-input"
+            data-testid="admin_manage__input-email"
+            type="email"
+            placeholder="Email"
+            onChange={ ({ target }) => setEmail(target.value) }
+          />
+        </label>
 
-      <label htmlFor="password-input">
-        Senha:
-        <input
-          className="password-input"
-          data-testid="admin_manage__input-password"
-          type="password"
-          placeholder="Senha"
-          onChange={ ({ target }) => setPassword(target.value) }
-        />
-      </label>
+        <label htmlFor="password-input">
+          Senha:
+          <input
+            className="password-input"
+            data-testid="admin_manage__input-password"
+            type="password"
+            placeholder="Senha"
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
+        </label>
 
-      <label htmlFor="select">
-        Tipo:
-        <select
-          name="select"
-          data-testid="admin_manage__select-role"
-          onChange={ ({ target }) => setRole(target.value) }
+        <label htmlFor="select">
+          Tipo:
+          <select
+            name="select"
+            className="select"
+            data-testid="admin_manage__select-role"
+            onChange={ ({ target }) => setRole(target.value) }
+          >
+            <option value=" " defaultValue> </option>
+            <option value="seller">Vendedor</option>
+            <option value="customer">Cliente</option>
+            <option value="administrator">Administrador</option>
+          </select>
+        </label>
+
+        <button
+          data-testid="admin_manage__button-register"
+          type="button"
+          disabled={ isButtonDisable }
+          onClick={ () => handleClick({ name, email, password, role }) }
+          className="cadastrar-btn"
         >
-          <option value=" " defaultValue> </option>
-          <option value="seller">Vendedor</option>
-          <option value="customer">Cliente</option>
-          <option value="administrator">Administrador</option>
-        </select>
-      </label>
+          Cadastrar
+        </button>
 
-      <button
-        data-testid="admin_manage__button-register"
-        type="button"
-        disabled={ isButtonDisable }
-        onClick={ () => handleClick({ name, email, password, role }) }
-      >
-        Cadastrar
-      </button>
-
-      { (invalidRegister) ? (
-        <span data-testid="admin_manage__element-invalid-register">
-          Dados Invalidos
-        </span>
-      ) : ''}
+        { (invalidRegister) ? (
+          <span data-testid="admin_manage__element-invalid-register">
+            Dados Invalidos
+          </span>
+        ) : ''}
+      </div>
 
       <h1>Tabela de usuários cadastrados</h1>
       <UsersTable allUsers={ users } getUsers={ getUsers } />
