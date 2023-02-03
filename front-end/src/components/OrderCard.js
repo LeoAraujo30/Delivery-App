@@ -14,13 +14,13 @@ export default function OrderCard({ id, status, address, totalPrice, date }) {
 
   return (
     <div
+      className="salesCard"
       onClick={ () => navigate(`/seller/orders/${id}`) }
       aria-hidden="true"
       key={ id }
     >
-      <h4>Pedido</h4>
       <h2 data-testid={ `seller_orders__element-order-id-${id}` }>
-        { `${id}` }
+        { `Pedido ${id}` }
       </h2>
       <h2 data-testid={ `seller_orders__element-delivery-status-${id}` }>
         { `${status}` }
@@ -32,7 +32,7 @@ export default function OrderCard({ id, status, address, totalPrice, date }) {
         { `${handleDate()}` }
       </h2>
       <h2 data-testid={ `seller_orders__element-card-price-${id}` }>
-        { `${totalPrice.replace('.', ',')}` }
+        { `R$ ${totalPrice.replace('.', ',')}` }
       </h2>
     </div>
   );

@@ -51,11 +51,11 @@ export default function Navbar() {
           Orders
         </button>
       ) : ''}
-      <h3
+      <h1
         data-testid="customer_products__element-navbar-user-full-name"
       >
         { user.userName }
-      </h3>
+      </h1>
       <button
         className="navbarButton"
         type="button"

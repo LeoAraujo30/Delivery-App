@@ -18,20 +18,22 @@ export default function SellerOrders() {
   }, []);
 
   return (
-    <div>
+    <div className="pages">
       <Navbar />
-      { orders !== [] && orders.map(
-        (e) => (
-          <OrderCard
-            key={ e.id }
-            id={ e.id }
-            status={ e.status }
-            address={ `${e.deliveryAddress}, ${e.deliveryNumber}` }
-            totalPrice={ e.totalPrice }
-            date={ e.saleDate }
-          />
-        ),
-      )}
+      <div id="sales">
+        { orders !== [] && orders.map(
+          (e) => (
+            <OrderCard
+              key={ e.id }
+              id={ e.id }
+              status={ e.status }
+              address={ `${e.deliveryAddress}, ${e.deliveryNumber}` }
+              totalPrice={ e.totalPrice }
+              date={ e.saleDate }
+            />
+          ),
+        )}
+      </div>
     </div>
   );
 }
